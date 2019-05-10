@@ -30,6 +30,8 @@ class Timer extends React.Component<TimerProps> {
         style={{
           display: "flex",
           alignContent: "center",
+          alignItems: "center",
+          // height: "1vh",
           flexDirection: "column"
         }}
       >
