@@ -1,19 +1,14 @@
 import { WebBrowser } from "expo";
 import React from "react";
-import {
-  Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { MonoText } from "../components/StyledText";
-import {BRIGHTBLUE} from "../constants/Colors"
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+// import { BRIGHTBLUE } from "../constants/Colors";
+import { NavigationScreenProp } from "react-navigation";
 
-export default class HomeScreen extends React.Component {
+interface Props {
+  navigation: NavigationScreenProp<{}, {}>;
+}
+
+export default class HomeScreen extends React.Component<Props> {
   static navigationOptions = {
     header: null
   };
@@ -25,39 +20,22 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require("../assets/images/robot-dev.png")
-                  : require("../assets/images/robot-prod.png")
-              }
-              style={styles.welcomeImage}
-            />
+          <View style={{ display: "flex", justifyContent: "center" }}>
+            <Text style={{ fontSize: 20 }}>LOCKOUT TIMER</Text>
           </View>
 
           <View>
             <Button
-              label="Start 5 Min Timer"
-              style={{ padding: 20, width: 300, backgroundColor: BRIGHTBLUE }}
+              title="5 Minute Timer"
+              onPress={() =>
+                this.props.navigation.push("Timer", { time: 5 * 60 * 1000 })
+              }
             />
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}
-          >
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
       </View>
     );
   }
-
-
 
   _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync(
@@ -119,26 +97,6 @@ const styles = StyleSheet.create({
     color: "rgba(96,100,109, 1)",
     lineHeight: 24,
     textAlign: "center"
-  },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
   },
   tabBarInfoText: {
     fontSize: 17,

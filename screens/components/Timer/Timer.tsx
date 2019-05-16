@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View } from "react-native";
 
 interface TimerProps {
-  time: number;
+  time?: number;
 }
 
 class Timer extends React.Component<TimerProps> {
@@ -46,7 +46,7 @@ class Timer extends React.Component<TimerProps> {
             style={{ fontSize: 20, color: "white" }}
           /> */}
           <Text style={{ fontSize: 40, color: "white", textAlign: "center" }}>
-           {this.formatTime(this.props.time)}
+           {this.formatTime(this.props.time ? this.props.time : 5 * 60 * 1000)}
           </Text>
         </View>
       </View>
